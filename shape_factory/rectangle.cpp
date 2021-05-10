@@ -1,6 +1,7 @@
 #include"rectangle.h"
+#include"fmt/core.h"
 
 std::string rectangle::to_shape()
 {
-    return "This is a rectangle";
+    return fmt::format("This is a rectangle");
 }

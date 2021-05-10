@@ -1,0 +1,2 @@
+C:/Strawberry/c/bin/ar.exe qc libgmock.a CMakeFiles/gmock.dir/gmock-gtest-all.cc.obj
+C:/Strawberry/c/bin/ranlib.exe libgmock.a

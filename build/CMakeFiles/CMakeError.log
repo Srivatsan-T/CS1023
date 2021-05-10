@@ -1,0 +1,15 @@
+Performing C++ SOURCE FILE Test FMT_HAS_MBIG_OBJ failed with the following output:
+Change Dir: C:/Users/never/Google Drive/Semester 2/CS1023/CS1023/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Strawberry/c/bin/gmake.exe -f Makefile cmTC_f9bee/fast && C:/Strawberry/c/bin/gmake.exe  -f CMakeFiles/cmTC_f9bee.dir/build.make CMakeFiles/cmTC_f9bee.dir/build
+gmake.exe[1]: Entering directory 'C:/Users/never/Google Drive/Semester 2/CS1023/CS1023/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f9bee.dir/src.cxx.obj
+C:/Strawberry/c/bin/x86_64-w64-mingw32-g++.exe -DFMT_HAS_MBIG_OBJ  Wa,-mbig-obj -std=gnu++11 -o CMakeFiles/cmTC_f9bee.dir/src.cxx.obj -c "C:/Users/never/Google Drive/Semester 2/CS1023/CS1023/build/CMakeFiles/CMakeTmp/src.cxx"
+x86_64-w64-mingw32-g++.exe: error: Wa,-mbig-obj: No such file or directory
+gmake.exe[1]: *** [CMakeFiles/cmTC_f9bee.dir/build.make:78: CMakeFiles/cmTC_f9bee.dir/src.cxx.obj] Error 1
+gmake.exe[1]: Leaving directory 'C:/Users/never/Google Drive/Semester 2/CS1023/CS1023/build/CMakeFiles/CMakeTmp'
+gmake.exe: *** [Makefile:127: cmTC_f9bee/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
