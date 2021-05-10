@@ -1,0 +1,25 @@
+.PHONY : clean all
+
+all : shape_factory
+
+shape_factory : circle.o rectangle.o shapes.o main.o
+		g++ -o shape_factory -L C:/Users/never/Downloads/fmt-7.1.3 circle.o rectangle.o shapes.o main.o
+
+shapes.o : shapes.cpp shapes.h
+		g++ -c -I C:/Users/never/Downloads/fmt-7.1.3/include shapes.cpp
+
+circle.o : circle.cpp circle.h
+		g++ -c -I C:/Users/never/Downloads/fmt-7.1.3/include circle.cpp
+	
+rectangle.o : rectangle.cpp rectangle.h
+		g++ -c -I C:/Users/never/Downloads/fmt-7.1.3/include rectangle.cpp
+
+
+main.o : main.cpp shapes.h rectangle.h circle.h
+		g++ -c -I C:/Users/never/Downloads/fmt-7.1.3/include main.cpp		
+
+
+
+clean : 
+		rm *.o shape_factory
+
