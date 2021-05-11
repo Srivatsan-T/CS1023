@@ -1,22 +1,11 @@
 #include<iostream>
-#include"rectangle.h"
-#include"circle.h"
+#include"shape_factory.h"
 
 int main()
 {
-    int choice;
-    std::cout<<"Enter 1 for circle and 2 for rectangle";
-    std::cin>>choice;
-    shapes *s;
-    if(choice == 1)
-    {
-        s = new circle();
-    }
-    else if(choice == 2)
-    {
-        s = new rectangle();
-
-    }
-    std::cout<<s->to_shape();
+    shapes *s1 = ret_shape(shape_name::rectangle);
+    shapes *s2 = ret_shape(shape_name::circle);
+    shapes *s3 = ret_shape(shape_name::shapes);
+    std::cout<<s1->to_shape()<<std::endl<<s2->to_shape()<<std::endl<<s3->to_shape()<<std::endl;  
     return 0;
 }

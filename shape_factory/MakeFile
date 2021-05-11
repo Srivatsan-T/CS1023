@@ -1,25 +1,31 @@
+SRC = circle.cpp rectangle.cpp shapes.cpp main.cpp shape_factory.cpp
+OBJ = $(addsuffix .o,$(basename $(SRC))) 
+CC = g++
+CFLAGS = -c -g -Wall -Werror -pedantic
+EXE = shape_factory
+
 .PHONY : clean all
 
-all : shape_factory
+all : $(EXE)
 
-shape_factory : circle.o rectangle.o shapes.o main.o
-		g++ -o shape_factory -L C:/Users/never/Documents/fmt-7.1.3 circle.o rectangle.o shapes.o main.o
+shape_factory : $(OBJ)
+		$(CC) -o $(EXE) $(OBJ)
 
-shapes.o : shapes.cpp shapes.h
-		g++ -c -I C:/Users/never/Documents/fmt-7.1.3/include shapes.cpp
+$(OBJ) : %.o : %.cpp
+		$(CC) $(CFLAGS) $<
 
-circle.o : circle.cpp circle.h
-		g++ -c -I C:/Users/never/Documents/fmt-7.1.3/include circle.cpp
+#shapes.o : shapes.cpp shapes.h
+#		g++ -c shapes.cpp
+
+#circle.o : circle.cpp circle.h
+#		g++ -c circle.cpp
 	
-rectangle.o : rectangle.cpp rectangle.h
-		g++ -c -I C:/Users/never/Documents/fmt-7.1.3/include rectangle.cpp
+#rectangle.o : rectangle.cpp rectangle.h
+#		g++ -c rectangle.cpp
 
 
-main.o : main.cpp shapes.h rectangle.h circle.h
-		g++ -c -I C:/Users/never/Documents/fmt-7.1.3/include main.cpp		
+#main.o : main.cpp shapes.h rectangle.h circle.h
+		g++ -c main.cpp		
 
-
-
-clean : 
-		rm *.o shape_factory
-
+clean :
+		del *.o *.exe $(EXE)

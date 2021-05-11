@@ -1,2 +1,0 @@
-C:/Strawberry/c/bin/ar.exe qc libtest-main.a CMakeFiles/test-main.dir/test-main.cc.obj CMakeFiles/test-main.dir/gtest-extra.cc.obj CMakeFiles/test-main.dir/util.cc.obj
-C:/Strawberry/c/bin/ranlib.exe libtest-main.a
