@@ -1,0 +1,8 @@
+thread : main.o
+		g++ -std=c++2a -o thread main.o
+
+main.o : main.cpp threadpool.h thread_safe.h
+
+		g++ -c -std=c++2a main.cpp 
+
+
