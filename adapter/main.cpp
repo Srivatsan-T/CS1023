@@ -1,12 +1,13 @@
 #include<array>
 #include<iostream>
 #include<optional>
+#include<assert.h>
+#include<stdexcept>
 
-template<typename T>
-
+template<typename T,unsigned size>
 class stack
 {
-    std::array<T,100> data;
+    std::array<T,size> data;
     int index;
 
     public:
@@ -16,31 +17,30 @@ class stack
         index = -1;
     }
 
-    bool push(T a)
+    bool push(T a) 
     {
-        if(index >=100)
+        if(index == size)
         {
             return false;
         }
         for(int i=index;i>=0;i--)
         {
-            data[i+1] = data[i]; 
+            data.at(i+1) = data.at(i); 
         }
-        data[0] = a;
-        index++;
-        return true;
+            data.at(0) = a;
+            index++;
+            return true;
     }
-
     bool pop()
     {
         if(index == -1)
         {
             return false;
         }
-        T item = data[0];
+        T item = data.at(0);
         for(int i=0;i<index;i++)
         {
-            data[i] = data[i+1];
+            data.at(i) = data.at(i+1);
         }
         index--;
         return true;
@@ -54,7 +54,7 @@ class stack
         }
         else
         {
-            return data[0];
+            return data.at(0);
         }
     }
 
@@ -62,7 +62,7 @@ class stack
     {
         for(int i=0;i<=index;i++)
         {
-            std::cout<<data[i]<<":";
+            std::cout<<data.at(i)<<":";
         }
         std::cout<<std::endl;
     }
@@ -71,16 +71,27 @@ class stack
 
 int main()
 {
-    stack<int> s;
-    for(int i=0;i<20;i++)
-    {
-        s.push(i);
-    }
-    s.show_stack();
+    stack<int,4> s;
+    auto v = s.top();
+    assert(v.has_value() == false);
+    try{
     for(int i=0;i<5;i++)
     {
-        s.pop();
+        s.push(i);
+        s.show_stack();
     }
+    }
+    catch(std::exception& e)
+    {
+        std::cout<<e.what()<<std::endl;
+        std::cout<<"Error ma"<<std::endl;
+    }
+
     s.show_stack();
+    for(int i=0;i<6;i++)
+    {
+        s.pop();
+        s.show_stack();
+    }
     return 0;
 }
