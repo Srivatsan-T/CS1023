@@ -8,8 +8,8 @@ card::card(unsigned c,unsigned n)
 
 card::card()
 {
-    color = 0;
-    number = 0;
+    color = 5;
+    number = 16;
 }
 
 card::card(const card &s)
@@ -98,3 +98,16 @@ void card::show_card()
     }
     
 }
+
+bool card::operator=(card c)
+{
+    if(c.number == number && c.color == color)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+

@@ -11,7 +11,7 @@
 #define GREEN 2
 #define YELLOW 3
 #define NO_COLOR 5
-
+#define NO_NUMBER 16
 
 #include<vector>
 #include<iostream>
@@ -30,6 +30,8 @@ public:
     void set_color(unsigned);
     void set_number(unsigned);
     void show_card();
+    bool operator=(card);
+    bool operator&(card);
 
 };
 
