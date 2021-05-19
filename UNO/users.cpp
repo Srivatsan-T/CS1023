@@ -19,17 +19,17 @@ void users::two_players()
         std::shuffle (users::deck.begin(), users::deck.end(),e);
         for(int i=0;i<10;i++)
         {
-            player_1.push_back(users::deck[i]);
+            player_1.emplace_back(users::deck[i]);
         }
 
         for(int i=10;i<20;i++)
         {
-            player_2.push_back(deck[i]);
+            player_2.emplace_back(deck[i]);
         }
 
         for(int i=20;i<108;i++)
         {
-            game_deck.push_back(deck[i]);
+            game_deck.emplace_back(deck[i]);
         }
     }
 }

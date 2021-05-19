@@ -18,11 +18,11 @@ void game::play_game(unsigned n)
 {
     is_valid_move = false;
     std::string game_choice;
-    if(h->get_player1().size() == 0)
+    if (h->get_player1().size() == 0)
     {
         win1 = true;
     }
-    else if(h->get_player2().size() == 0)
+    else if (h->get_player2().size() == 0)
     {
         win2 = true;
     }
@@ -34,13 +34,13 @@ void game::play_game(unsigned n)
             show_last();
             show_player(1);
 
-            if ((h->get_game_deck().back().get_number() == 11 || h->get_game_deck().back().get_number() == 12))
+            if ((h->get_game_deck().back().get_number() == 11 || h->get_game_deck().back().get_number() == 12) && h->get_game_deck().back().played_by == 2)
             {
                 std::cout << "You lost a turn" << std::endl;
-                //return;
+                return;
             }
 
-            if (h->get_game_deck().back().get_number() == 13)
+            if (h->get_game_deck().back().get_number() == 13 && h->get_game_deck().back().played_by != 1)
             {
                 std::cout << "Two cards added" << std::endl;
                 player_add(1);
@@ -48,7 +48,7 @@ void game::play_game(unsigned n)
                 show_last();
                 show_player(1);
             }
-            if (h->get_game_deck().back().get_number() == 15)
+            if (h->get_game_deck().back().get_number() == 15 && h->get_game_deck().back().played_by != 1)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -67,7 +67,7 @@ void game::play_game(unsigned n)
             {
                 if (is_move_available(1) == false)
                 {
-                    std::cout << "No moves available to drop,try adding cards " << std::endl;
+                    std::cout << "No moves available to drop, You must add a card now" << std::endl;
                     goto label1;
                 }
                 player_drop(1);
@@ -113,13 +113,13 @@ void game::play_game(unsigned n)
             show_last();
             show_player(2);
 
-            if (h->get_game_deck().back().get_number() == 11 || h->get_game_deck().back().get_number() == 12)
+            if ((h->get_game_deck().back().get_number() == 11 || h->get_game_deck().back().get_number() == 12) && h->get_game_deck().back().played_by == 1)
             {
                 std::cout << "You lost a turn" << std::endl;
                 return;
             }
 
-            if (h->get_game_deck().back().get_number() == 13)
+            if (h->get_game_deck().back().get_number() == 13 && h->get_game_deck().back().played_by != 2)
             {
                 std::cout << "Two cards added" << std::endl;
                 player_add(2);
@@ -127,7 +127,7 @@ void game::play_game(unsigned n)
                 show_last();
                 show_player(2);
             }
-            if (h->get_game_deck().back().get_number() == 15)
+            if (h->get_game_deck().back().get_number() == 15 && h->get_game_deck().back().played_by != 2)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -298,7 +298,7 @@ bool game::card_drop(unsigned t, unsigned n)
                 std::cin >> c;
                 h->get_player1()[n - 1] = card(c, h->get_player1()[n - 1].get_number());
             }
-
+            h->get_player1()[n - 1].played_by = 1;
             h->get_game_deck().push_back(h->get_player1()[n - 1]);
             h->get_player1().erase(h->get_player1().begin() + n - 1);
             is_valid_move = true;
@@ -319,11 +319,11 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_player1()[n - 1].get_number() == 12 || h->get_player1()[n - 1].get_number() == 11) && (h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color()))
+        else if ((h->get_player2()[n - 1].get_number() == 12 || h->get_player2()[n - 1].get_number() == 11) && (h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color()))
         {
             is_valid_move = true;
         }
-        else if (h->get_player1()[n - 1].get_number() < 11 && (h->get_player1()[n - 1].get_number() == h->get_game_deck().back().get_number() || h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color()))
+        else if (h->get_player2()[n - 1].get_number() < 11 && ((h->get_player2()[n - 1].get_number() == h->get_game_deck().back().get_number()) || (h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color())))
         {
             is_valid_move = true;
         }
@@ -331,7 +331,7 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_game_deck().back().get_number() <= 11) && (h->get_player2()[n - 1].get_number() == h->get_game_deck().back().get_number() || h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color()))
+        else if ((h->get_game_deck().back().get_number() < 11) && ((h->get_player2()[n - 1].get_number() == h->get_game_deck().back().get_number()) || (h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color())))
         {
             is_valid_move = true;
         }
@@ -344,8 +344,8 @@ bool game::card_drop(unsigned t, unsigned n)
                 std::cin >> c;
                 h->get_player2()[n - 1] = card(c, h->get_player2()[n - 1].get_number());
             }
-
-            h->get_game_deck().push_back(h->get_player2()[n - 1]);
+            h->get_player2()[n - 1].played_by = 2;
+            h->get_game_deck().emplace_back(h->get_player2()[n - 1]);
             h->get_player2().erase(h->get_player2().begin() + n - 1);
             is_valid_move = true;
         }

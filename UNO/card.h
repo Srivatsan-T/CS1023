@@ -12,25 +12,23 @@
 #define YELLOW 3
 #define NO_COLOR 5
 
-
-#include<vector>
-#include<iostream>
-#include<string>
+#include <vector>
+#include <iostream>
+#include <string>
 
 class card
 {
     unsigned color;
     unsigned number;
+
 public:
-    card(unsigned,unsigned);
+    unsigned played_by;
+    card(unsigned, unsigned);
     card();
-    card(const card&);
+    card(const card &);
     unsigned get_color();
     unsigned get_number();
-    void set_color(unsigned);
-    void set_number(unsigned);
     void show_card();
-
 };
 
 #endif // CARD_H

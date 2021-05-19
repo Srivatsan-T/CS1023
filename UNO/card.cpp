@@ -4,12 +4,14 @@ card::card(unsigned c,unsigned n)
 {
     color = c;
     number = n;
+    played_by = 0;
 }
 
 card::card()
 {
     color = 0;
     number = 0;
+    played_by = 0;
 }
 
 card::card(const card &s)
@@ -26,16 +28,6 @@ unsigned card::get_color()
 unsigned card::get_number()
 {
     return number;
-}
-
-void card::set_color(unsigned n)
-{
-    color = n;
-}
-
-void card::set_number(unsigned n)
-{
-    number = n;
 }
 
 void card::show_card()
@@ -90,15 +82,14 @@ void card::show_card()
 
     if(get_color() != 5 && get_number()<11)
     {
-        std::cout<<color<<":"<<get_number()<<std::endl;
+        std::cout<<color<<":"<<get_number()<<":"<<played_by<<std::endl;
     }
     else if(get_color() == 5)
     {
-        std::cout<<color<<":"<<number<<std::endl;
+        std::cout<<color<<":"<<number<<":"<<played_by<<std::endl;
     }
     else if(get_color() != 5 && get_number() >= 11)
     {
-        std::cout<<color<<":"<<number<<std::endl;
+        std::cout<<color<<":"<<number<<":"<<played_by<<std::endl;
     }
-    
 }
