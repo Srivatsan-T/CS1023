@@ -122,7 +122,7 @@ void game::play_game(unsigned n)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    player_add(1);
+                    player_add(2);
                 }
             }
             if (h->get_game_deck().back().get_number() == 14 || h->get_game_deck().back().get_number() == 15)
