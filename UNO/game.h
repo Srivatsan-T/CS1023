@@ -10,8 +10,6 @@ class game
 {
     public:
     bool is_valid_move;
-    card last_played1;
-    card last_played2;
     game(unsigned);
     users *h;
     void start_game();

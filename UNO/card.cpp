@@ -8,8 +8,8 @@ card::card(unsigned c,unsigned n)
 
 card::card()
 {
-    color = 5;
-    number = 16;
+    color = 0;
+    number = 0;
 }
 
 card::card(const card &s)
@@ -58,6 +58,10 @@ void card::show_card()
     {
         color = "YELLOW";
     }
+    else if(get_color() == 5)
+    {
+        color = "BLACK";
+    }
 
     if(get_number() == 11)
     {
@@ -90,7 +94,7 @@ void card::show_card()
     }
     else if(get_color() == 5)
     {
-        std::cout<<number<<std::endl;
+        std::cout<<color<<":"<<number<<std::endl;
     }
     else if(get_color() != 5 && get_number() >= 11)
     {
@@ -98,16 +102,3 @@ void card::show_card()
     }
     
 }
-
-bool card::operator=(card c)
-{
-    if(c.number == number && c.color == color)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
