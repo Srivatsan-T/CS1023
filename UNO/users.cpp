@@ -19,7 +19,7 @@ void users::two_players()
         std::shuffle (users::deck.begin(), users::deck.end(),e);
         for(int i=0;i<10;i++)
         {
-            player_1.emplace_back(users::deck[i]);
+            player_1.emplace_back(deck[i]);
         }
 
         for(int i=10;i<20;i++)
@@ -38,74 +38,78 @@ std::vector<card> users::generate_deck()
 {
     for(int i = 0;i<10;i++)
     {
-        deck.push_back(card(BLUE,i));
+        deck.push_back(card(color_t::BLUE, static_cast<number_t>(i) ));
     }
     for(int i=10;i<19;i++)
     {
-        deck.push_back(card(BLUE,i-9));
+        deck.push_back(card(color_t::BLUE,static_cast<number_t>(i-9)));
     }
-    deck.push_back(card(BLUE,SKIP));
-    deck.push_back(card(BLUE,SKIP));
-    deck.push_back(card(BLUE,REVERSE));
-    deck.push_back(card(BLUE,REVERSE));
-    deck.push_back(card(BLUE,DRAW_TWO));
-    deck.push_back(card(BLUE,DRAW_TWO));
+    deck.push_back(card(color_t::BLUE,number_t::SKIP));
+    deck.push_back(card(color_t::BLUE,number_t::SKIP));
+    deck.push_back(card(color_t::BLUE,number_t::REVERSE));
+    deck.push_back(card(color_t::BLUE,number_t::REVERSE));
+    deck.push_back(card(color_t::BLUE,number_t::DRAW_TWO));
+    deck.push_back(card(color_t::BLUE,number_t::DRAW_TWO));
 
     for(int i = 0;i<10;i++)
     {
-        deck.push_back(card(RED,i));
+        deck.push_back(card(color_t::RED,static_cast<number_t>(i)));
     }
     for(int i=10;i<19;i++)
     {
-        deck.push_back(card(RED,i-9));
+        deck.push_back(card(color_t::RED,static_cast<number_t>(i-9)));
     }
-    deck.push_back(card(RED,SKIP));
-    deck.push_back(card(RED,SKIP));
-    deck.push_back(card(RED,REVERSE));
-    deck.push_back(card(RED,REVERSE));
-    deck.push_back(card(RED,DRAW_TWO));
-    deck.push_back(card(RED,DRAW_TWO));
+    deck.push_back(card(color_t::RED,number_t::SKIP));
+    deck.push_back(card(color_t::RED,number_t::SKIP));
+    deck.push_back(card(color_t::RED,number_t::REVERSE));
+    deck.push_back(card(color_t::RED,number_t::REVERSE));
+    deck.push_back(card(color_t::RED,number_t::DRAW_TWO));
+    deck.push_back(card(color_t::RED,number_t::DRAW_TWO));
 
     for(int i = 0;i<10;i++)
     {
-        deck.push_back(card(GREEN,i));
+        deck.push_back(card(color_t::GREEN,static_cast<number_t>(i)));
     }
     for(int i=10;i<19;i++)
     {
-        deck.push_back(card(GREEN,i-9));
+        deck.push_back(card(color_t::GREEN,static_cast<number_t>(i-9)));
     }
 
-    deck.push_back(card(GREEN,SKIP));
-    deck.push_back(card(GREEN,SKIP));
-    deck.push_back(card(GREEN,REVERSE));
-    deck.push_back(card(GREEN,REVERSE));
-    deck.push_back(card(GREEN,DRAW_TWO));
-    deck.push_back(card(GREEN,DRAW_TWO));
+    deck.push_back(card(color_t::GREEN,number_t::SKIP));
+    deck.push_back(card(color_t::GREEN,number_t::SKIP));
+    deck.push_back(card(color_t::GREEN,number_t::REVERSE));
+    deck.push_back(card(color_t::GREEN,number_t::REVERSE));
+    deck.push_back(card(color_t::GREEN,number_t::DRAW_TWO));
+    deck.push_back(card(color_t::GREEN,number_t::DRAW_TWO));
 
     for(int i = 0;i<10;i++)
     {
-        deck.push_back(card(YELLOW,i));
+        deck.push_back(card(color_t::YELLOW,static_cast<number_t>(i)));
     }
     for(int i=10;i<19;i++)
     {
-        deck.push_back(card(YELLOW,i-9));
+        deck.push_back(card(color_t::YELLOW,static_cast<number_t>(i-9)));
     }
 
-    deck.push_back(card(YELLOW,SKIP));
-    deck.push_back(card(YELLOW,SKIP));
-    deck.push_back(card(YELLOW,REVERSE));
-    deck.push_back(card(YELLOW,REVERSE));
-    deck.push_back(card(YELLOW,DRAW_TWO));
-    deck.push_back(card(YELLOW,DRAW_TWO));
+    deck.push_back(card(color_t::YELLOW,number_t::SKIP));
+    deck.push_back(card(color_t::YELLOW,number_t::SKIP));
+    deck.push_back(card(color_t::YELLOW,number_t::REVERSE));
+    deck.push_back(card(color_t::YELLOW,number_t::REVERSE));
+    deck.push_back(card(color_t::YELLOW,number_t::DRAW_TWO));
+    deck.push_back(card(color_t::YELLOW,number_t::DRAW_TWO));
 
     for(int i=100;i<104;i++)
     {
-        deck.push_back(card(NO_COLOR,WILD));
+        deck.push_back(card(color_t::NO_COLOR,number_t::WILD));
     }
 
     for(int i=104;i<108;i++)
     {
-        deck.push_back(card(NO_COLOR,DRAW_FOUR_WILD));
+        deck.push_back(card(color_t::NO_COLOR,number_t::DRAW_FOUR_WILD));
+    }
+    for(int i=0;i<108;i++)
+    {
+        deck[i].power = true;
     }
     return deck;
 }

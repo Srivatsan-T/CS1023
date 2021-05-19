@@ -1,95 +1,140 @@
 #include "card.h"
 
-card::card(unsigned c,unsigned n)
+card::card(color_t c, number_t n)
 {
     color = c;
     number = n;
-    played_by = 0;
+    power = true;
 }
 
 card::card()
 {
-    color = 0;
-    number = 0;
-    played_by = 0;
+    color = color_t::NO_COLOR;
+    number = number_t::NO_NUMBER;
+    power = true;
 }
 
 card::card(const card &s)
 {
     color = s.color;
     number = s.number;
+    power = s.power;
 }
 
-unsigned card::get_color()
+color_t card::get_color()
 {
     return color;
 }
 
-unsigned card::get_number()
+number_t card::get_number()
 {
     return number;
 }
 
 void card::show_card()
 {
-    std::string color; 
-    std::string number;
-    if(get_color() == 0)
+    std::string color = get_color_string();
+    std::string number = get_number_string();
+    std::cout << color << ":" << number << std::endl;
+}
+
+std::string card::get_color_string()
+{
+    std::string color;
+    if (get_color() == color_t::RED)
     {
         color = "RED";
     }
-    else if(get_color() == 1)
+    else if (get_color() == color_t::BLUE)
     {
         color = "BLUE";
     }
-    else if(get_color() == 2)
+    else if (get_color() == color_t::GREEN)
     {
         color = "GREEN";
     }
-    else if(get_color() == 3)
+    else if (get_color() == color_t::YELLOW)
     {
         color = "YELLOW";
     }
-    else if(get_color() == 5)
+    else if (get_color() == color_t::NO_COLOR)
     {
         color = "BLACK";
     }
+    return color;
+}
 
-    if(get_number() == 11)
+std::string card::get_number_string()
+{
+    std::string number;
+    if (get_number() == number_t::ZERO)
+    {
+        number = "0";
+    }
+    else if (get_number() == number_t::ONE)
+    {
+        number = "1";
+    }
+    else if (get_number() == number_t::TWO)
+    {
+        number = "2";
+    }
+    else if (get_number() == number_t::THREE)
+    {
+        number = "3";
+    }
+    else if (get_number() == number_t::FOUR)
+    {
+        number = "4";
+    }
+    else if (get_number() == number_t::FIVE)
+    {
+        number = "5";
+    }
+    else if (get_number() == number_t::SIX)
+    {
+        number = "6";
+    }
+    else if (get_number() == number_t::SEVEN)
+    {
+        number = "7";
+    }
+    else if (get_number() == number_t::EIGHT)
+    {
+        number = "8";
+    }
+    else if (get_number() == number_t::NINE)
+    {
+        number = "9";
+    }
+    else if (get_number() == number_t::TEN)
+    {
+        number = "10";
+    }
+
+    if (get_number() == number_t::SKIP)
     {
         number = "SKIP";
     }
 
-    else if(get_number() == 12)
+    else if (get_number() == number_t::REVERSE)
     {
         number = "REVERSE";
     }
 
-    else if(get_number() == 13)
+    else if (get_number() == number_t::DRAW_TWO)
     {
         number = "DRAW-TWO";
     }
-    
-    else if(get_number() == 14)
+
+    else if (get_number() == number_t::WILD)
     {
         number = "WILD";
     }
-    
-    else if(get_number() == 15)
+
+    else if (get_number() == number_t::DRAW_FOUR_WILD)
     {
         number = "DRAW-FOUR-WILD";
     }
-
-    if(get_color() != 5 && get_number()<11)
-    {
-        std::cout<<color<<":"<<get_number()<<":"<<played_by<<std::endl;
-    }
-    else if(get_color() == 5)
-    {
-        std::cout<<color<<":"<<number<<":"<<played_by<<std::endl;
-    }
-    else if(get_color() != 5 && get_number() >= 11)
-    {
-        std::cout<<color<<":"<<number<<":"<<played_by<<std::endl;
-    }
+    return number;
 }

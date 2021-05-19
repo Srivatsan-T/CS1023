@@ -5,7 +5,7 @@
 #include "card.h"
 #include<vector>
 #include<string>
-
+#include<cctype>
 class game
 {
     public:
@@ -22,6 +22,7 @@ class game
     bool is_move_available(unsigned );
     void show_player(unsigned);
     void show_last();
+    color_t get_color_change();
 };
 
 

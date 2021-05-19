@@ -1,34 +1,55 @@
 #ifndef CARD_H
 #define CARD_H
 
-#define SKIP 11
-#define REVERSE 12
-#define DRAW_TWO 13
-#define WILD 14
-#define DRAW_FOUR_WILD 15
-#define RED 0
-#define BLUE 1
-#define GREEN 2
-#define YELLOW 3
-#define NO_COLOR 5
 
 #include <vector>
 #include <iostream>
 #include <string>
 
+enum class color_t
+{
+    RED,
+    BLUE,
+    GREEN,
+    YELLOW,
+    NO_COLOR
+};
+
+enum class number_t
+{
+    ZERO,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    TEN,
+    SKIP,
+    REVERSE,
+    DRAW_TWO,
+    WILD,
+    DRAW_FOUR_WILD,
+    NO_NUMBER
+};
 class card
 {
-    unsigned color;
-    unsigned number;
+    color_t color;
+    number_t number;
 
 public:
-    unsigned played_by;
-    card(unsigned, unsigned);
+    bool power;
+    card(color_t c, number_t n);
     card();
     card(const card &);
-    unsigned get_color();
-    unsigned get_number();
+    color_t get_color();
+    number_t get_number();
     void show_card();
+    std::string get_color_string();
+    std::string get_number_string();
 };
 
 #endif // CARD_H
