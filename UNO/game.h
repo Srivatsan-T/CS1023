@@ -10,6 +10,8 @@ class game
 {
     public:
     bool is_valid_move;
+    bool win1;
+    bool win2;
     game(unsigned);
     users *h;
     void start_game();

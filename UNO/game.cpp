@@ -5,6 +5,7 @@ game::game(unsigned n)
     h = new users;
     is_valid_move = false;
     h->number_players = 2;
+    win1 = win2 = false;
 }
 
 void game::start_game()
@@ -17,9 +18,17 @@ void game::play_game(unsigned n)
 {
     is_valid_move = false;
     std::string game_choice;
+    if(h->get_player1().size() == 0)
+    {
+        win1 = true;
+    }
+    else if(h->get_player2().size() == 0)
+    {
+        win2 = true;
+    }
     if (n == 1)
     {
-        while (true)
+        while (win1 == false && win2 == false)
         {
 
             show_last();
@@ -28,7 +37,7 @@ void game::play_game(unsigned n)
             if ((h->get_game_deck().back().get_number() == 11 || h->get_game_deck().back().get_number() == 12))
             {
                 std::cout << "You lost a turn" << std::endl;
-                return;
+                //return;
             }
 
             if (h->get_game_deck().back().get_number() == 13)
@@ -48,7 +57,7 @@ void game::play_game(unsigned n)
             }
             if (h->get_game_deck().back().get_number() == 14 || h->get_game_deck().back().get_number() == 15)
             {
-                std::cout << "The color is changed to " << h->get_game_deck().back().get_number() << std::endl;
+                std::cout << "The color is changed to " << h->get_game_deck().back().get_color() << std::endl;
             }
         label1:
             std::cout << "Enter drop for card_drop and add for taking a card" << std::endl;
@@ -98,7 +107,7 @@ void game::play_game(unsigned n)
     }
     else if (n == 2)
     {
-        while (true)
+        while (win1 == false && win2 == false)
         {
 
             show_last();
@@ -182,12 +191,13 @@ void game::player_add(unsigned n)
     if (n == 1)
     {
         h->get_player1().push_back(h->get_game_deck().front());
+        h->get_game_deck().erase(h->get_game_deck().begin());
     }
     else if (n == 2)
     {
         h->get_player2().push_back(h->get_game_deck().front());
+        h->get_game_deck().erase(h->get_game_deck().begin());
     }
-    h->get_game_deck().erase(h->get_game_deck().begin());
 }
 
 void game::player_drop(unsigned n)
@@ -218,7 +228,7 @@ bool game::is_move_available(unsigned n)
             {
                 return true;
             }
-            else if ((h->get_game_deck().back().get_number() <= 11) && (h->get_player1()[i].get_number() == h->get_game_deck().back().get_number() || h->get_player1()[i].get_color() == h->get_game_deck().back().get_color()))
+            else if ((h->get_game_deck().back().get_number() < 11) && (h->get_player1()[i].get_number() == h->get_game_deck().back().get_number() || h->get_player1()[i].get_color() == h->get_game_deck().back().get_color()))
             {
                 return true;
             }
