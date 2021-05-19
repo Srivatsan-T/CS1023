@@ -39,7 +39,13 @@ void game::play_game(unsigned n)
                 show_last();
                 show_player(1);
             }
-
+            if (h->get_game_deck().back().get_number() == 15)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    player_add(1);
+                }
+            }
             if (h->get_game_deck().back().get_number() == 14 || h->get_game_deck().back().get_number() == 15)
             {
                 std::cout << "The color is changed to " << h->get_game_deck().back().get_number() << std::endl;
@@ -112,7 +118,13 @@ void game::play_game(unsigned n)
                 show_last();
                 show_player(2);
             }
-
+            if (h->get_game_deck().back().get_number() == 15)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    player_add(1);
+                }
+            }
             if (h->get_game_deck().back().get_number() == 14 || h->get_game_deck().back().get_number() == 15)
             {
                 std::cout << "The color is changed to " << h->get_game_deck().back().get_color() << std::endl;
@@ -271,10 +283,10 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             if (h->get_player1()[n - 1].get_number() == 14 || h->get_player1()[n - 1].get_number() == 15)
             {
-                unsigned choice;
+                unsigned c;
                 std::cout << "Enter the color you want to change to" << std::endl;
-                std::cin >> choice;
-                h->get_player1()[n - 1].set_color(choice);
+                std::cin >> c;
+                h->get_player1()[n - 1] = card(c, h->get_player1()[n - 1].get_number());
             }
 
             h->get_game_deck().push_back(h->get_player1()[n - 1]);
@@ -317,10 +329,10 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             if (h->get_player2()[n - 1].get_number() == 14 || h->get_player2()[n - 1].get_number() == 15)
             {
-                unsigned choice;
+                unsigned c;
                 std::cout << "Enter the color you want to change to" << std::endl;
-                std::cin >> choice;
-                h->get_player2()[n - 1].set_number(choice);
+                std::cin >> c;
+                h->get_player2()[n - 1] = card(c, h->get_player2()[n - 1].get_number());
             }
 
             h->get_game_deck().push_back(h->get_player2()[n - 1]);
@@ -340,7 +352,7 @@ void game::show_player(unsigned n)
     {
         for (int i = 0; i < h->get_player1().size(); i++)
         {
-            std::cout<<i+1<<" ";
+            std::cout << i + 1 << " ";
             h->get_player1()[i].show_card();
         }
     }
@@ -349,7 +361,7 @@ void game::show_player(unsigned n)
     {
         for (int i = 0; i < h->get_player2().size(); i++)
         {
-            std::cout<<i+1<<" ";
+            std::cout << i + 1 << " ";
             h->get_player2()[i].show_card();
         }
     }
