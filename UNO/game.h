@@ -10,6 +10,7 @@ class game
 {
     public:
     bool is_valid_move;
+    bool is_first_move;
     bool win1;
     bool win2;
     game(unsigned);

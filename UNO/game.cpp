@@ -4,6 +4,7 @@ game::game(unsigned n)
 {
     h = new users;
     is_valid_move = false;
+    is_first_move = true;
     h->number_players = 2;
     win1 = win2 = false;
 }
@@ -30,10 +31,28 @@ void game::play_game(unsigned n)
     {
         while (win1 == false && win2 == false)
         {
+            if (is_first_move == true)
+            {
+                unsigned n;
+            first_move1:
 
-            show_last();
-            show_player(1);
-
+                show_player(1);
+                std::cout << "Drop your first card-Enter Number" << std::endl;
+                std::cin >> n;
+                if (n > h->get_player1().size())
+                {
+                    std::cout << "Enter a valid position";
+                    goto first_move1;
+                }
+                if (h->get_player1()[n - 1].get_number() == number_t::WILD || h->get_player1()[n - 1].get_number() == number_t::DRAW_FOUR_WILD)
+                {
+                    h->get_player1()[n - 1] = card(get_color_change(), h->get_player1()[n - 1].get_number());
+                }
+                h->get_game_deck().push_back(h->get_player1()[n - 1]);
+                h->get_player1().erase(h->get_player1().begin() + n - 1);
+                is_first_move = false;
+                return;
+            }
             if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && h->get_game_deck().back().power == true)
             {
                 std::cout << "You lost a turn" << std::endl;
@@ -46,8 +65,6 @@ void game::play_game(unsigned n)
                 std::cout << "Two cards added" << std::endl;
                 player_add(1);
                 player_add(1);
-                show_last();
-                show_player(1);
                 h->get_game_deck().back().power = false;
             }
             if (h->get_game_deck().back().get_number() == number_t::DRAW_FOUR_WILD && h->get_game_deck().back().power == true)
@@ -63,6 +80,8 @@ void game::play_game(unsigned n)
                 std::cout << "The color is changed to " << h->get_game_deck().back().get_color_string() << std::endl;
             }
         label1:
+            show_last();
+            show_player(1);
             std::cout << "Enter drop for card_drop and add for taking a card" << std::endl;
             std::cin >> game_choice;
 
@@ -91,16 +110,14 @@ void game::play_game(unsigned n)
                     show_last();
                     show_player(1);
                     char n;
-                    std::cout << "Do you want to drop anything?(y/n) " << std::endl;
+                    std::cout << "Do you want to drop anything?(Y/N) " << std::endl;
                     std::cin >> n;
-                    if (n == 'y')
+                    if (n == 'Y')
                     {
                         player_drop(1);
-                        show_last();
-                        show_player(1);
                         return;
                     }
-                    else if (n == 'n')
+                    else if (n == 'N')
                     {
                         return;
                     }
@@ -112,10 +129,27 @@ void game::play_game(unsigned n)
     {
         while (win1 == false && win2 == false)
         {
-
-            show_last();
-            show_player(2);
-
+            if (is_first_move == true)
+            {
+                unsigned n;
+            first_move2:
+                show_player(2);
+                std::cout << "Drop your first card-Enter Number" << std::endl;
+                std::cin >> n;
+                if (n > h->get_player2().size())
+                {
+                    std::cout << "Enter a valid position";
+                    goto first_move2;
+                }
+                if (h->get_player2()[n - 1].get_number() == number_t::WILD || h->get_player2()[n - 1].get_number() == number_t::DRAW_FOUR_WILD)
+                {
+                    h->get_player2()[n - 1] = card(get_color_change(), h->get_player2()[n - 1].get_number());
+                }
+                h->get_game_deck().push_back(h->get_player2()[n - 1]);
+                h->get_player2().erase(h->get_player2().begin() + n - 1);
+                is_first_move = false;
+                return;
+            }
             if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && h->get_game_deck().back().power == true)
             {
                 std::cout << "You lost a turn" << std::endl;
@@ -128,8 +162,6 @@ void game::play_game(unsigned n)
                 std::cout << "Two cards added" << std::endl;
                 player_add(2);
                 player_add(2);
-                show_last();
-                show_player(2);
                 h->get_game_deck().back().power = false;
             }
             if (h->get_game_deck().back().get_number() == number_t::DRAW_FOUR_WILD && h->get_game_deck().back().power == true)
@@ -145,6 +177,8 @@ void game::play_game(unsigned n)
                 std::cout << "The color is changed to " << h->get_game_deck().back().get_color_string() << std::endl;
             }
         label2:
+            show_last();
+            show_player(2);
             std::cout << "Enter drop for card_drop and add for taking a card" << std::endl;
             std::cin >> game_choice;
 
@@ -163,8 +197,6 @@ void game::play_game(unsigned n)
                 player_add(2);
                 if (is_move_available(2) == false)
                 {
-                    show_last();
-                    show_player(2);
                     std::cout << "No moves available after adding" << std::endl;
                     return;
                 }
@@ -173,16 +205,14 @@ void game::play_game(unsigned n)
                     show_last();
                     show_player(2);
                     char n;
-                    std::cout << "Do you want to drop anything?(y/n) " << std::endl;
+                    std::cout << "Do you want to drop anything?(Y/N) " << std::endl;
                     std::cin >> n;
-                    if (n == 'y')
+                    if (n == 'Y')
                     {
                         player_drop(2);
-                        show_last();
-                        show_player(2);
                         return;
                     }
-                    else if (n == 'n')
+                    else if (n == 'N')
                     {
                         return;
                     }
@@ -232,7 +262,11 @@ bool game::is_move_available(unsigned n)
             {
                 return true;
             }
-            else if ((h->get_game_deck().back().get_number() >= number_t::SKIP) && h->get_player1()[i].get_color() == h->get_game_deck().back().get_color())
+            else if ((h->get_game_deck().back().get_number() >= number_t::DRAW_TWO) && h->get_player1()[i].get_color() == h->get_game_deck().back().get_color())
+            {
+                return true;
+            }
+            else if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && (h->get_player1()[i].get_number() == h->get_game_deck().back().get_number() || h->get_player1()[i].get_color() == h->get_game_deck().back().get_color()))
             {
                 return true;
             }
@@ -251,7 +285,11 @@ bool game::is_move_available(unsigned n)
             {
                 return true;
             }
-            else if ((h->get_game_deck().back().get_number() >= number_t::SKIP) && h->get_player2()[i].get_color() == h->get_game_deck().back().get_color())
+            else if ((h->get_game_deck().back().get_number() >= number_t::DRAW_TWO) && h->get_player2()[i].get_color() == h->get_game_deck().back().get_color())
+            {
+                return true;
+            }
+            else if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && (h->get_player2()[i].get_number() == h->get_game_deck().back().get_number() || h->get_player2()[i].get_color() == h->get_game_deck().back().get_color()))
             {
                 return true;
             }
@@ -281,7 +319,7 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_player1()[n - 1].get_number() == number_t::REVERSE || h->get_player1()[n - 1].get_number() == number_t::SKIP) && (h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color()))
+        else if ((h->get_player1()[n - 1].get_number() == number_t::REVERSE || h->get_player1()[n - 1].get_number() == number_t::SKIP) && (h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color() || h->get_player1()[n - 1].get_number() == h->get_game_deck().back().get_number()))
         {
             is_valid_move = true;
         }
@@ -289,7 +327,11 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_game_deck().back().get_number() >= number_t::SKIP) && h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color())
+        else if ((h->get_game_deck().back().get_number() >= number_t::DRAW_TWO) && h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color())
+        {
+            is_valid_move = true;
+        }
+        else if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && (h->get_player1()[n - 1].get_number() == h->get_game_deck().back().get_number() || h->get_player1()[n - 1].get_color() == h->get_game_deck().back().get_color()))
         {
             is_valid_move = true;
         }
@@ -323,7 +365,7 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_player2()[n - 1].get_number() == number_t::REVERSE || h->get_player2()[n - 1].get_number() == number_t::SKIP) && (h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color()))
+        else if ((h->get_player2()[n - 1].get_number() == number_t::REVERSE || h->get_player2()[n - 1].get_number() == number_t::SKIP) && (h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color() || h->get_player2()[n - 1].get_number() == h->get_game_deck().back().get_number()))
         {
             is_valid_move = true;
         }
@@ -331,7 +373,11 @@ bool game::card_drop(unsigned t, unsigned n)
         {
             is_valid_move = true;
         }
-        else if ((h->get_game_deck().back().get_number() >= number_t::SKIP) && h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color())
+        else if ((h->get_game_deck().back().get_number() >= number_t::DRAW_TWO) && h->get_player2()[n - 1].get_color() == h->get_game_deck().back().get_color())
+        {
+            is_valid_move = true;
+        }
+        else if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && (h->get_player2()[n-1].get_number() == h->get_game_deck().back().get_number() || h->get_player2()[n-1].get_color() == h->get_game_deck().back().get_color()))
         {
             is_valid_move = true;
         }
@@ -389,22 +435,22 @@ color_t game::get_color_change()
 {
     std::string c;
     color_t result;
-    redo:
-    std::cout << "Enter the color you want to change to (red,blue,green,yellow) " << std::endl;
+redo:
+    std::cout << "Enter the color you want to change to [Red,Blue,Green,Yellow] " << std::endl;
     std::cin >> c;
-    if (c == "red")
+    if (c == "Red")
     {
         result = color_t::RED;
     }
-    else if (c == "blue")
+    else if (c == "Blue")
     {
         result = color_t::BLUE;
     }
-    else if (c == "green")
+    else if (c == "Green")
     {
         result = color_t::GREEN;
     }
-    else if (c == "yellow")
+    else if (c == "Yellow")
     {
         result = color_t::YELLOW;
     }
