@@ -114,15 +114,18 @@ std::vector<card> users::generate_deck()
     return deck;
 }
 
-std::vector<card>& users::get_player1()
+std::vector<card>& users::get_player(unsigned n)
 {
-    return player_1;
+    if(n == 1)
+    {
+        return player_1;
+    }
+    else if(n == 2)
+    {
+        return player_2;
+    }
 }
 
-std::vector<card>& users::get_player2()
-{
-    return player_2;
-}
 
 std::vector<card>& users::get_game_deck()
 {

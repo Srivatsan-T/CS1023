@@ -25,8 +25,7 @@ public:
     void set_num_user(unsigned);
     void two_players();
     std::vector<card> generate_deck();
-    std::vector<card>& get_player1();
-    std::vector<card>& get_player2();
+    std::vector<card>& get_player(unsigned);
     std::vector<card>& get_game_deck();
 };
 
