@@ -1,4 +1,5 @@
 #include "game.h"
+#include"color.hpp"
 
 game::game(unsigned n)
 {
@@ -31,29 +32,28 @@ void game::play_game(unsigned n)
     {
         if (is_first_move == true)
         {
-            unsigned choice;
-        first_move1:
-
+            char choice[5];
             show_player(n);
-            std::cout << "Drop your first card-Enter Number" << std::endl;
+            first_move:
+            std::cout <<"Drop your first card-Enter Number" << std::endl;
             std::cin >> choice;
-            if (choice > h->get_player(n).size())
+            if (atoi(choice) > h->get_player(n).size() || atoi(choice) <= 0)
             {
-                std::cout << "Enter a valid position";
-                goto first_move1;
+                std::cout << "Enter a valid position"<<std::endl;
+                goto first_move;
             }
-            if (h->get_player(n)[choice - 1].get_number() == number_t::WILD || h->get_player(n)[choice - 1].get_number() == number_t::DRAW_FOUR_WILD)
+            if (h->get_player(n)[atoi(choice) - 1].get_number() == number_t::WILD || h->get_player(n)[atoi(choice) - 1].get_number() == number_t::DRAW_FOUR_WILD)
             {
-                h->get_player(n)[choice - 1] = card(get_color_change(), h->get_player(n)[choice - 1].get_number());
+                h->get_player(n)[atoi(choice) - 1] = card(get_color_change(), h->get_player(n)[atoi(choice) - 1].get_number());
             }
-            h->get_game_deck().push_back(h->get_player(n)[choice - 1]);
-            h->get_player(n).erase(h->get_player(n).begin() + choice - 1);
+            h->get_game_deck().push_back(h->get_player(n)[atoi(choice) - 1]);
+            h->get_player(n).erase(h->get_player(n).begin() + atoi(choice) - 1);
             is_first_move = false;
             return;
         }
         if ((h->get_game_deck().back().get_number() == number_t::SKIP || h->get_game_deck().back().get_number() == number_t::REVERSE) && h->get_game_deck().back().power == true)
         {
-            std::cout << "You lost a turn" << std::endl;
+            std::cout << "Player "<<n<<" has lost a turn" << std::endl;
             h->get_game_deck().back().power = false;
             return;
         }
@@ -77,23 +77,25 @@ void game::play_game(unsigned n)
         {
             std::cout << "The color is changed to " << h->get_game_deck().back().get_color_string() << std::endl;
         }
-    label1:
         show_last();
         show_player(n);
-        std::cout << "Enter drop for card_drop and add for taking a card" << std::endl;
+        label:
+        auto card_drop = dye::aqua("drop");
+        auto add = dye::aqua("taking a deck card");         
+        std::cout << "Enter 1 for for "<< card_drop<<" and 2 for "<<add << std::endl;
         std::cin >> game_choice;
 
-        if (game_choice == "drop")
+        if (game_choice == "1")
         {
             if (is_move_available(n) == false)
             {
-                std::cout << "No moves available to drop, You must add a card now" << std::endl;
-                goto label1;
+                std::cout << "No moves available to "<<card_drop<<" You must "<<hue::aqua<< "take a deck card now" << std::endl;
+                goto label;
             }
             player_drop(n);
             return;
         }
-        else if (game_choice == "add")
+        else if (game_choice == "2")
         {
             player_add(n);
             if (is_move_available(n) == false)
@@ -107,19 +109,30 @@ void game::play_game(unsigned n)
             {
                 show_last();
                 show_player(n);
-                char n;
+                char choice;
+                y_n_check:
                 std::cout << "Do you want to drop anything?(Y/N) " << std::endl;
-                std::cin >> n;
-                if (n == 'Y')
+                std::cin >> choice;
+                if (choice == 'Y')
                 {
                     player_drop(n);
                     return;
                 }
-                else if (n == 'N')
+                else if (choice == 'N')
                 {
                     return;
                 }
+                else
+                {
+                    std::cout<<"Enter either 'Y' or 'N'"<<std::endl;
+                    goto y_n_check;
+                }
             }
+        }
+        else
+        {
+            std::cout<<"Enter a Valid position"<<std::endl;
+            goto label;
         }
     }
 }
@@ -133,11 +146,13 @@ void game::player_add(unsigned n)
 
 void game::player_drop(unsigned n)
 {
-    unsigned choice;
+    char choice[5];
     do
     {
+        auto card_number = dye::aqua("card number");
+        std::cout<<"Enter the "<<card_number<<" you want to try and drop"<<std::endl;
         std::cin >> choice;
-        if (card_drop(n, choice) == false)
+        if (card_drop(n, atoi(choice) ) == false)
         {
             std::cout << "Invalid Choice" << std::endl;
         }
@@ -170,7 +185,7 @@ bool game::is_move_available(unsigned n)
 bool game::card_drop(unsigned t, unsigned n)
 {
     is_valid_move = false;
-    if (n > h->get_player(t).size())
+    if (n > h->get_player(t).size() || n <= 0)
     {
         is_valid_move = false;
     }
@@ -242,21 +257,21 @@ color_t game::get_color_change()
     std::string c;
     color_t result;
 redo:
-    std::cout << "Enter the color you want to change to [Red,Blue,Green,Yellow] " << std::endl;
+    std::cout << "Enter the color you want to change to [1-"<<dye::red("Red")<<",2-"<<dye::blue("Blue")<<",3-"<<dye::green("Green")<<",4-"<<dye::yellow("Yellow")<<"]"<<std::endl;
     std::cin >> c;
-    if (c == "Red")
+    if (c == "1")
     {
         result = color_t::RED;
     }
-    else if (c == "Blue")
+    else if (c == "2")
     {
         result = color_t::BLUE;
     }
-    else if (c == "Green")
+    else if (c == "3")
     {
         result = color_t::GREEN;
     }
-    else if (c == "Yellow")
+    else if (c == "4")
     {
         result = color_t::YELLOW;
     }

@@ -5,7 +5,7 @@
 #include "card.h"
 #include<vector>
 #include<string>
-#include<cctype>
+#include<stdlib.h>
 class game
 {
     public:

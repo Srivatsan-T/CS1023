@@ -34,8 +34,28 @@ number_t card::get_number()
 void card::show_card()
 {
     std::string color = get_color_string();
+    if (color == "RED")
+    {
+        color_change(12, color);
+    }
+    else if (color == "BLUE")
+    {
+        color_change(9, color);
+    }
+    else if (color == "GREEN")
+    {
+        color_change(10, color);
+    }
+    else if (color == "YELLOW")
+    {
+        color_change(14, color);
+    }
+    else if(color == "BLACK")
+    {
+        std::cout<<color;
+    }
     std::string number = get_number_string();
-    std::cout << color << ":" << number << std::endl;
+    std::cout << ":" << number << std::endl;
 }
 
 std::string card::get_color_string()
@@ -137,4 +157,27 @@ std::string card::get_number_string()
         number = "DRAW-FOUR-WILD";
     }
     return number;
+}
+
+void card::color_change(int color, std::string text)
+{
+    //1: Blue
+    //2: Green
+    //3: Cyan
+    //4: Red
+    //5: Purple
+    //6: Yellow (Dark)
+    //7: Default white
+    //8: Gray/Grey
+    //9: Bright blue
+    //10: Brigth green
+    //11: Bright cyan
+    //12: Bright red
+    //13: Pink/Magenta
+    //14: Yellow
+    //15: Bright white
+    //Numbers after 15 include background colors
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+    std::cout << text;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }

@@ -2,22 +2,22 @@
 
 all : Uno
 
-Uno : card.o users.o game.o main.o 
+Uno : card.o users.o game.o main.o
 		g++ -g  users.o card.o main.o game.o -o Uno -static-libstdc++ -static-libgcc -static
 
 
-users.o : users.cpp card.cpp users.h card.h
-		g++ -g -c users.cpp card.cpp -static-libstdc++ -static-libgcc -static
+users.o : users.cpp users.h card.h 
+		g++ -g -c users.cpp -static-libstdc++ -static-libgcc -static
 
-card.o : card.cpp card.h
-		g++ -c card.cpp
+card.o : card.cpp card.h color.hpp
+		g++ -g -c card.cpp -static-libstdc++ -static-libgcc -static
 
-game.o : game.cpp users.cpp card.cpp game.h users.h card.h
-		g++ -g -c game.cpp users.cpp card.cpp -static-libstdc++ -static-libgcc -static
+game.o : game.cpp game.h users.h card.h 
+		g++ -g -c game.cpp -static-libstdc++ -static-libgcc -static
 
-main.o : main.cpp game.h users.h card.h
+main.o : main.cpp game.h users.h card.h 
 		g++ -g -c main.cpp -static-libstdc++ -static-libgcc -static
 
 clean : 	
-		del *.o *.exe Uno
+		del *.o *.exe *.gch Uno
 

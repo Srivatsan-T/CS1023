@@ -5,6 +5,9 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include<stdlib.h>
+#include<conio.h>
+#include<windows.h>
 
 enum class color_t
 {
@@ -50,6 +53,7 @@ public:
     void show_card();
     std::string get_color_string();
     std::string get_number_string();
+    void color_change(int,std::string);
 };
 
 #endif // CARD_H
