@@ -70,6 +70,18 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "condition_variable": "cpp",
+        "locale": "cpp",
+        "mutex": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "stop_token": "cpp",
+        "xhash": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "xtree": "cpp"
     }
 }
